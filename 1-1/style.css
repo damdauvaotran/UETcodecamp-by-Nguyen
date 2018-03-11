@@ -1,0 +1,78 @@
+* {
+    box-sizing: border-box;
+    font-family: "Times New Roman", Inconsolata;
+}
+
+header {
+    background-color: red;
+    text-align: center;
+    padding: 15px;
+}
+
+header h1 {
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.create {
+    position: relative;
+}
+
+.create input {
+    font-size: 16px;
+    padding: 10px;
+    width: 46%;
+    border: none;
+}
+
+.create button {
+    font-size: 16px;
+    padding: 10px;
+    width: 25%;
+    border: none;
+    background-color: #eee;
+}
+
+
+.main ul {
+    padding-left: 0;
+    margin: 0;
+}
+
+.main ul li {
+    list-style: none;
+    font-size: 16px;
+    background-color: #f9f9f9;
+    padding: 10px 10px 10px 40px;
+    position: relative;
+}
+
+.main ul li:hover {
+    cursor: pointer;
+    background-color: #eee;
+}
+
+.main ul li .close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px 15px;
+}
+
+.main ul li.completed {
+    text-decoration: line-through;
+    background-color: #a5a5a5;
+    color: #fff;
+}
+
+
+.main ul li:hover .close {
+    background-color: red;
+    color: #fff;
+}
+
+.main ul li .close {
+    float: right;
+    font-family: Inconsolata;
+    padding: 10px 15px;
+}
