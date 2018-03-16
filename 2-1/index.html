@@ -22,12 +22,22 @@
 </div>
 <script>
     var todoUl =document.getElementById("todoUl");
-    var tosdoText;
     var btn = document.getElementById("add");
+    var input= document.getElementById("input");
+    var todoText;
+
     btn.addEventListener("click", function () {
+        todoText =  input.value;
         var todoLi = document.createElement("li");
+        todoLi.innerHTML = todoText + "<span class=\"close\">x</span>";
+        todoUl.appendChild(todoLi);
         
     })
+    function testFunc() {
+        var testLi =document.getElementsByTagName("li");
+        console.log(testLi);
+    }
+
 </script>
 </body>
 </html>
