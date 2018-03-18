@@ -1,7 +1,20 @@
 var addButton = document.getElementById("btnAdd");
 var listItems = document.getElementsByTagName("li");
 
+function setEmptyTodo() {
+    var str = localStorage.getItem("todoDatabase");
+    var todoObj = JSON.parse(str);
+    if (todoObj == undefined) {
+        todoObj = {
+            todos: [
+            ]
+        }
+        reloadLocalStorage(todoObj)
+    }
 
+}
+
+setEmptyTodo();
 render();
 
 
@@ -20,23 +33,12 @@ function addToLocal(text) {
     console.log(text);
     var str = localStorage.getItem("todoDatabase");
     var todoObj = JSON.parse(str);
-    if (todoObj == undefined) {
-        todoObj = {
-            todos: [
-                {
-                    text: "",
-                    completed: false
-                }
-            ]
 
-        }
-    }
     if (text != "") {
         todoObj.todos.push(
             {text: text, completed: false}
         );
     }
-    //There is no text allowed = "", except the first one
     console.log(todoObj);
     reloadLocalStorage(todoObj);
 
@@ -54,6 +56,22 @@ function remove(deletedItem) {
     reloadLocalStorage(todoObj);
     render();
 
+}
+
+function toggleCompleted(item) {
+    var objstr = localStorage.getItem("todoDatabase");
+    var obj = JSON.parse(objstr);
+    var todoList = Array.prototype.slice.call(document.getElementsByTagName("li"));
+    var index = todoList.indexOf(item);
+    console.log(obj.todos[index].completed);
+    if (obj.todos[index].completed === true) {
+        obj.todos[index].completed = false;
+    } else {
+        obj.todos[index].completed = true;
+    }
+    console.log(obj.todos[index].completed)
+    reloadLocalStorage(obj)
+    render();
 }
 
 function reloadLocalStorage(obj) {
@@ -81,7 +99,10 @@ function renderTodolist() {
         if (todoText != "") {
             var li = document.createElement("li");
             li.innerHTML = todoText + "<span onclick=\"remove(this)\" class =\"close\">x</span>";
-
+            li.setAttribute("onClick", "toggleCompleted(this)")
+            if (obj.todos[i].completed === true) {
+                li.classList.add("completed");
+            }
             todoUnorderedList.appendChild(li);
         }
     }
@@ -90,4 +111,3 @@ function renderTodolist() {
 function clearInputForm(inputElement) {
     inputElement.value = "";
 }
-
