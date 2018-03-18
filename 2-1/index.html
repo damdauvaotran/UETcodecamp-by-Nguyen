@@ -10,34 +10,19 @@
 <header>
     <h1>My to do list</h1>
     <form class="create">
-        <input type="text" placeholder="What do you want to do" required id = "input"><button type="button" id="add">Add</button>
+        <input type="text" placeholder="What do you want to do" required id = "input"><button type="button" id="btnAdd" >Add</button>
     </form>
 </header>
 <div class="main">
-    <ul id='todoUl'>
+    <ul id='list'>
         <li class="completed"> This is not an excellent example <span class="close">x</span></li>
         <li>This is an excellent example <span class="close">x</span></li>
         <li>This homework must be done <span class="close">x</span></li>
     </ul>
 </div>
-<script>
-    var todoUl =document.getElementById("todoUl");
-    var btn = document.getElementById("add");
-    var input= document.getElementById("input");
-    var todoText;
-
-    btn.addEventListener("click", function () {
-        todoText =  input.value;
-        var todoLi = document.createElement("li");
-        todoLi.innerHTML = todoText + "<span class=\"close\">x</span>";
-        todoUl.appendChild(todoLi);
-        
-    })
-    function testFunc() {
-        var testLi =document.getElementsByTagName("li");
-        console.log(testLi);
-    }
+<script src="todo.js">
 
 </script>
 </body>
+
 </html>

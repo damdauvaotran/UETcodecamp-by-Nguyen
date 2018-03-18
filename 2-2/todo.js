@@ -1,30 +1,93 @@
-var btnAdd  = document.getElementById("btnAdd");
-var todoUl = document.getElementById("list") ;
-var input = document.getElementById("input");
+var addButton = document.getElementById("btnAdd");
+var listItems = document.getElementsByTagName("li");
 
 
-
-btnAdd.addEventListener("click", function () {
-    var text= input.value;
+render();
 
 
-})
+addButton.addEventListener("click", function () {
+    var inputTodo = document.getElementById("input");
+    var text = inputTodo.value;
+    addToLocal(text);
+    inputTodo.innerText = "";
+    render();
+    clearInputForm(inputTodo);
 
-var todoStorage={
-    TodoList:[
-{
-    text:"An example of Local storage",
-    completed:true
-},{
-    text:"Another eg of local storage",
-    completed:false
-}]
+});
+
+
+function addToLocal(text) {
+    console.log(text);
+    var str = localStorage.getItem("todoDatabase");
+    var todoObj = JSON.parse(str);
+    if (todoObj == undefined) {
+        todoObj = {
+            todos: [
+                {
+                    text: "",
+                    completed: false
+                }
+            ]
+
+        }
+    }
+    if (text != "") {
+        todoObj.todos.push(
+            {text: text, completed: false}
+        );
+    }
+    //There is no text allowed = "", except the first one
+    console.log(todoObj);
+    reloadLocalStorage(todoObj);
+
 }
-var todoStr = JSON.stringify(todoStorage);
-localStorage.setItem("TodoList",todoStr);
-console.log(todoStorage);
-function addToStorage(text) {
 
 
+function remove(deletedItem) {
+
+    var closeArray = Array.prototype.slice.call(document.getElementsByClassName('close'));
+    var index = closeArray.indexOf(deletedItem);
+    console.log(index);
+    var str = localStorage.getItem("todoDatabase");
+    var todoObj = JSON.parse(str);
+    todoObj.todos.splice(index, 1);
+    reloadLocalStorage(todoObj);
+    render();
 
 }
+
+function reloadLocalStorage(obj) {
+    localStorage.clear();
+    localStorage.setItem("todoDatabase", JSON.stringify(obj));
+}
+
+function render() {
+    clearTodoList();
+    renderTodolist();
+
+}
+
+function clearTodoList() {
+    var todoUnorderedList = document.getElementById("list");
+    todoUnorderedList.innerHTML = "";
+}
+
+function renderTodolist() {
+    var todoUnorderedList = document.getElementById("list");
+    var objstr = localStorage.getItem("todoDatabase");
+    var obj = JSON.parse(objstr);
+    for (var i = 0; i < obj.todos.length; i++) {
+        todoText = obj.todos[i].text;
+        if (todoText != "") {
+            var li = document.createElement("li");
+            li.innerHTML = todoText + "<span onclick=\"remove(this)\" class =\"close\">x</span>";
+
+            todoUnorderedList.appendChild(li);
+        }
+    }
+}
+
+function clearInputForm(inputElement) {
+    inputElement.value = "";
+}
+

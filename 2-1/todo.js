@@ -1,30 +1,22 @@
-var btnAdd  = document.getElementById("btnAdd");
-var todoUl = document.getElementById("list") ;
-var input = document.getElementById("input");
+var addButton = document.getElementById("btnAdd");
+var todoUnorderedList = document.getElementById("list");
 
-
-
-btnAdd.addEventListener("click", function () {
-    var text= input.value;
-
-
+addButton.addEventListener("click", function () {
+    var newLi = document.createElement("li");
+    var text = input.value;
+    newLi.innerHTML = text + "<span class=\"close\">x</span>";
+    todoUnorderedList.appendChild(newLi);
+    input.value = "";
+    refreshRender();
 })
 
-var todoStorage={
-    TodoList:[
-{
-    text:"An example of Local storage",
-    completed:true
-},{
-    text:"Another eg of local storage",
-    completed:false
-}]
-}
-var todoStr = JSON.stringify(todoStorage);
-localStorage.setItem("TodoList",todoStr);
-console.log(todoStorage);
-function addToStorage(text) {
-
-
-
+function refreshRender() {
+    var todoList = document.getElementsByTagName("li");
+    var closeBtn = document.getElementsByClassName("close");
+    for (var i =0; i< todoList.length; i++){
+        closeBtn[i].addEventListener("click", function () {
+            var div =this.parentElement;
+            div.remove();
+        })
+    }
 }
