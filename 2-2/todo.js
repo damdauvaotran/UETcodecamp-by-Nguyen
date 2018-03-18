@@ -31,8 +31,8 @@ addButton.addEventListener("click", function () {
 
 function addToLocal(text) {
     console.log(text);
-    var str = localStorage.getItem("todoDatabase");
-    var todoObj = JSON.parse(str);
+    var objStr = localStorage.getItem("todoDatabase");
+    var todoObj = JSON.parse(objStr);
 
     if (text != "") {
         todoObj.todos.push(
