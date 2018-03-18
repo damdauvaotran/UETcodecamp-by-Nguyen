@@ -38,6 +38,8 @@ function addToLocal(text) {
         todoObj.todos.push(
             {text: text, completed: false}
         );
+    } else{
+        alert("Please enter something to do :)")
     }
     console.log(todoObj);
     reloadLocalStorage(todoObj);
